@@ -705,9 +705,9 @@ graph TB
 
 ```mermaid
 mindmap
-  root((Fixed Size<br/>Contiguous<br/>Arrays))
+  root((Fixed Size Contiguous Arrays))
     Speed
-      O(1) access time
+      O1 access time
       Direct calculation
       No pointer following
     Memory
@@ -1293,9 +1293,9 @@ Remember, arrays use **contiguous memory** and **direct calculation**:
 
 ```mermaid
 flowchart LR
-    A[Want arr[5]?] --> B[Calculate:<br/>Base Address + 5 × 4 bytes]
-    B --> C[Jump directly to<br/>that memory location]
-    C --> D[Get value immediately!<br/>⚡ O-1 time]
+    A["Want arr[5]?"] --> B["Calculate:\nBase + (index × size)"]
+    B --> C["Direct memory jump"]
+    C --> D["Instant access\n⚡ O(1)"]
 ```
 
 **Code Example:**
