@@ -1398,7 +1398,7 @@ graph TD
     F -->|No| H[private]
     
     C --> C1[APIs, public methods,<br/>utility classes]
-    E --> E1[Fields/methods for<br/>oops.inheritance]
+    E --> E1[Fields/methods for<br/>inheritance]
     G --> G1[Package-level<br/>utilities]
     H --> H1[Internal implementation,<br/>sensitive data]
     
@@ -1413,7 +1413,7 @@ graph TD
 1. **Start with the most restrictive** (private) and only make it more accessible if needed
 2. **Keep fields private** - always! Use getters/setters for controlled access
 3. **Make methods public** only if they're part of the class's public API
-4. **Use protected** when you want to allow oops.inheritance but not widespread access
+4. **Use protected** when you want to allow inheritance but not widespread access
 5. **Think about security and encapsulation** before making something public
 
 ### Summary Diagram
@@ -2725,7 +2725,7 @@ class Course {
 ### 5. Access Modifiers
 - **private**: Maximum security - same class only
 - **default**: Package-level access
-- **protected**: Package + oops.inheritance
+- **protected**: Package + inheritance
 - **public**: Universal access
 - **Rule**: Start restrictive, make accessible only when needed
 
@@ -2765,7 +2765,7 @@ Create `BankAccount` class with:
 Implement:
 - Constructor chaining
 - Method chaining for adding courses
-- Protected fields for oops.inheritance
+- Protected fields for inheritance
 - Memory-efficient design
 
 ---
