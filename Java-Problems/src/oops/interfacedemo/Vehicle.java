@@ -44,6 +44,11 @@ public interface Vehicle {
     - To compete with another languages In java 1.8, they allowed to define a method in interface
     from 1.8 they introduced default method, with this we can define a method in interface
 
+    - Default function in interface is different than default access/ no access modifier
+    
+    default (keyword) → method implementation in interface
+    default (no modifier) → package-private access
+
 */
 
 // 7. we should use default to define a method in interface 
