@@ -2,6 +2,9 @@ package problems_gfg.basics;
 
 import java.util.Arrays;
 
+/*
+Two strings are anagrams if they contain the same characters with the same frequency, but possibly in a different order.
+*/
 public class Anagram {
     static void main(String[] args) {
         String s1 = "abaac";
