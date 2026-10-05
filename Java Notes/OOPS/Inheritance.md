@@ -8,31 +8,31 @@ Think of inheritance like a **family tree**. A child inherits traits from their 
 
 ```mermaid
 mindmap
-    root((Inheritance))
-        Types
-            Single
-            Multilevel
-            Hierarchical
-            Multiple via Interface
-        Keywords
-            extends
-            implements
-            super
-            this
-        Constructors
-            Default Constructor
-            Parameterized Constructor
-            super() call
-            this() call
-        Methods
-            Method Overloading
-            Method Overriding
-            @Override annotation
-        Static
-            Static fields
-            Static methods
-            Static vs Instance
-            Static and Inheritance
+  root((Inheritance))
+    Types
+      Single
+      Multilevel
+      Hierarchical
+      Multiple via Interface
+    Keywords
+      extends
+      implements
+      super
+      this
+    Constructors
+      Default Constructor
+      Parameterized Constructor
+      "super call"
+      "this call"
+    Methods
+      Method Overloading
+      Method Overriding
+      "@Override annotation"
+    Static
+      Static fields
+      Static methods
+      Static vs Instance
+      Static and Inheritance
 ```
 
 ---
@@ -758,18 +758,23 @@ Battery: 90%
 
 ```mermaid
 flowchart TD
-    A[new ElectricCar called] --> B{Does ElectricCar constructor\ncall super explicitly?}
-    B -->|Yes| C[Call super() → Car constructor]
-    B -->|No| D[Java auto-inserts super()\ncalling no-arg parent constructor]
-    C --> E{Does Car constructor\ncall super explicitly?}
+    A["new ElectricCar called"] --> B{"Does ElectricCar constructor<br/>call super explicitly?"}
+
+    B -->|Yes| C["Call super() → Car constructor"]
+    B -->|No| D["Java auto-inserts super()<br/>calling no-arg parent constructor"]
+
+    C --> E{"Does Car constructor<br/>call super explicitly?"}
     D --> E
-    E -->|Yes| F[Call super() → Vehicle constructor]
-    E -->|No| G[Java auto-inserts super()]
-    F --> H[Vehicle fields initialized]
+
+    E -->|Yes| F["Call super() → Vehicle constructor"]
+    E -->|No| G["Java auto-inserts super()"]
+
+    F --> H["Vehicle fields initialized"]
     G --> H
-    H --> I[Car fields initialized]
-    I --> J[ElectricCar fields initialized]
-    J --> K[Object is ready!]
+
+    H --> I["Car fields initialized"]
+    I --> J["ElectricCar fields initialized"]
+    J --> K["Object is ready!"]
 
     style A fill:#74c0fc,stroke:#1971c2
     style K fill:#51cf66,stroke:#2f9e44
@@ -2092,48 +2097,57 @@ Everything you need to know, one place.
 
 ```mermaid
 mindmap
-    root((Inheritance\nIn a Nutshell))
-        What it is
-            Child class reuses parent class
-            IS-A relationship
-            extends keyword
-        What gets inherited
-            public fields and methods
-            protected fields and methods
-            NOT private members
-            NOT constructors
-        Reference vs Instance
-            Reference = what you can SEE
-            Instance = what actually RUNS
-            Parent ref can hold child object
-            Child ref cannot hold parent object
-        Constructors
-            Parent constructor always runs first
-            super() must be first line
-            this() must be first line
-            Both cannot coexist in one constructor
-        this keyword
-            Resolves name conflicts
-            this() chains own constructors
-            return this for method chaining
-        super keyword
-            super() calls parent constructor
-            super.method() calls parent method
-            super.field accesses parent field
-        Overloading
-            Same class, same name
-            Different parameters
-            Compile-time decision
-        Overriding
-            Child redefines parent method
-            Same name and parameters
-            Runtime decision
-            Use @Override always
-        static
-            Belongs to class not object
-            Cannot be overridden
-            Method hiding only
-            No polymorphism
+  root((Inheritance<br/>In a Nutshell))
+
+    What it is
+      Child class reuses parent class
+      IS-A relationship
+      extends keyword
+
+    What gets inherited
+      public fields and methods
+      protected fields and methods
+      NOT private members
+      NOT constructors
+
+    Reference vs Instance
+      Reference is what you can SEE
+      Instance is what actually RUNS
+      Parent ref can hold child object
+      Child ref cannot hold parent object
+
+    Constructors
+      Parent constructor always runs first
+      super call must be first line
+      this call must be first line
+      Both cannot coexist in one constructor
+
+    this keyword
+      Resolves name conflicts
+      this chains own constructors
+      return this for method chaining
+
+    super keyword
+      super calls parent constructor
+      super dot method calls parent method
+      super dot field accesses parent field
+
+    Overloading
+      Same class, same name
+      Different parameters
+      Compile-time decision
+
+    Overriding
+      Child redefines parent method
+      Same name and parameters
+      Runtime decision
+      Use Override annotation always
+
+    static
+      Belongs to class not object
+      Cannot be overridden
+      Method hiding only
+      No polymorphism
 ```
 
 ### The 10 Golden Rules of Inheritance

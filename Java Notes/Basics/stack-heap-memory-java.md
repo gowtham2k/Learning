@@ -507,3 +507,287 @@ end
 
 M1 -- "points to" --> H1
 ```
+# 1️⃣1️⃣ Static Variables and Memory Allocation
+
+## 📌 What is a Static Variable?
+
+A **static variable** is a variable declared using the `static` keyword inside a class. It belongs to the **class rather than to individual objects**, so there is one shared copy associated with the class.
+
+### Interview-ready definition
+
+> **A static variable is a class-level variable declared using the `static` keyword. It is shared among all objects of that class, unlike an instance variable, which has a separate copy for each object.**
+
+---
+
+## 📌 Example: Instance vs Static Variable
+
+```java
+class Person {
+
+    // Instance variable
+    int age;
+
+    // Static variable
+    static int numberOfPeople = 0;
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Person p1 = new Person();
+        Person p2 = new Person();
+
+        p1.age = 20;
+        p2.age = 30;
+
+        Person.numberOfPeople = 2;
+    }
+}
+```
+
+Here:
+
+- `age` → **Instance variable**
+- `numberOfPeople` → **Static variable**
+- `p1` and `p2` → **Reference variables**
+- `p1` and `p2` are also **local variables** because they are declared inside `main()`
+
+---
+
+## 📌 How Instance and Static Variables Differ
+
+For:
+
+```java
+Person p1 = new Person();
+Person p2 = new Person();
+
+p1.age = 20;
+p2.age = 30;
+```
+
+There are two separate `age` values:
+
+```text
+                    HEAP
+
+             ┌─────────────────┐
+p1 ─────────►│ Person Object   │
+             │ age = 20        │
+             └─────────────────┘
+
+             ┌─────────────────┐
+p2 ─────────►│ Person Object   │
+             │ age = 30        │
+             └─────────────────┘
+```
+
+But for:
+
+```java
+Person.numberOfPeople = 2;
+```
+
+there is one class-level value shared by the `Person` objects:
+
+```text
+              PERSON CLASS
+             ┌─────────────────────┐
+             │ numberOfPeople = 2  │
+             └──────────┬──────────┘
+                        │
+                 shared by objects
+                    /        \
+                   /          \
+                 p1            p2
+                 │              │
+              age = 20       age = 30
+```
+
+---
+
+## 📌 Static Variable Memory Allocation
+
+A static variable is **not created separately for every object**.
+
+When the class is loaded by the JVM, the class-level information and static fields are associated with the class's runtime representation. Modern JVM implementations use the **Metaspace** for class metadata, while the exact storage details of static fields are JVM-implementation dependent.
+
+For interview purposes, it is better to say:
+
+> **Static variables have class-level lifetime and are shared by all instances. They are initialized when the class is initialized, rather than once for every object.**
+
+Do **not** rely on the oversimplified statement that "all static variables are stored in the Method Area" as a universal JVM memory rule. The JVM specification does not require one exact physical memory location for every implementation detail.
+
+---
+
+## 📌 Memory Comparison
+
+```text
+                         JVM
+                          │
+          ┌───────────────┴───────────────┐
+          │                               │
+        STACK                            HEAP
+          │                               │
+     main() frame                    Person Object 1
+     ├── p1 ───────────────────────► ├── age = 20
+     └── p2 ────────────────────┐    │
+                                │    Person Object 2
+                                └──► ├── age = 30
+
+                    CLASS-LEVEL DATA
+                         │
+                    Person class
+                    └── numberOfPeople = 2
+```
+
+The diagram is a **conceptual model** for understanding the relationship. The exact JVM memory layout is implementation dependent.
+
+---
+
+## 📌 Static Variable is Shared
+
+Consider:
+
+```java
+class Person {
+    int age;
+    static int count = 0;
+}
+```
+
+Then:
+
+```java
+Person p1 = new Person();
+Person p2 = new Person();
+
+p1.age = 20;
+p2.age = 30;
+
+Person.count = 2;
+```
+
+Conceptually:
+
+```text
+Person class
+│
+└── count = 2       ← ONE shared variable
+
+p1 → Person object
+     └── age = 20   ← p1's own variable
+
+p2 → Person object
+     └── age = 30   ← p2's own variable
+```
+
+If you change:
+
+```java
+Person.count = 3;
+```
+
+the same shared static variable changes for everyone.
+
+---
+
+## 📌 Why Use Static Variables?
+
+Use a static variable when a value should represent something **shared at the class level** rather than something belonging to one particular object.
+
+Example:
+
+```java
+class Person {
+    static String country = "India";
+}
+```
+
+If every `Person` has the same `country`, keeping one class-level value makes more sense than maintaining a separate copy for every object.
+
+Access it using the class name:
+
+```java
+Person.country
+```
+
+This makes it clear that the variable belongs to the class.
+
+---
+
+## 📌 Important: Static vs Instance
+
+| Feature | Instance Variable | Static Variable |
+|---|---|---|
+| Keyword | No `static` | `static` |
+| Belongs to | Object | Class |
+| Copies | One per object | Shared class-level copy |
+| Access | `p1.age` | `Person.count` |
+| Created per object? | Yes | No |
+| Shared? | No | Yes |
+| Example | `int age` | `static int count` |
+
+### Interview answer: Instance vs Static
+
+> **An instance variable belongs to an individual object, so every object has its own copy. A static variable belongs to the class, so it is shared among all objects of that class.**
+
+---
+
+## 📌 Complete Variable Classification
+
+```java
+class Person {
+
+    int age;                         // Instance + Primitive
+
+    static int numberOfPeople = 0;   // Static + Primitive
+
+    static String country = "India"; // Static + Reference
+
+    void display() {
+        int x = 10;                  // Local + Primitive
+        Person p = new Person();     // Local + Reference
+    }
+}
+```
+
+This gives four useful combinations:
+
+```text
+Local + Primitive     → int x = 10;
+Local + Reference     → Person p = new Person();
+Instance + Primitive  → int age;
+Static + Primitive    → static int numberOfPeople;
+Static + Reference    → static String country;
+```
+
+### ⭐ Key Interview Concept
+
+**Local / Instance / Static** describes **where the variable belongs and its scope/ownership relationship**.
+
+**Primitive / Reference** describes **what kind of value the variable holds**.
+
+Therefore, a variable can belong to more than one classification. For example:
+
+```java
+Person p = new Person();
+```
+
+`p` is both:
+
+- a **local variable**, because it is declared inside a method
+- a **reference variable**, because it holds a reference to an object
+
+---
+
+## 📌 Static Variable: Interview Quick Notes
+
+- Declared using the `static` keyword.
+- Belongs to the class, not an individual object.
+- Shared among instances of the class.
+- Initialized as part of class initialization.
+- Can be accessed using the class name, e.g. `Person.count`.
+- Does not require an object to access it.
+- A static field can be primitive or reference type.
+- Exact physical memory placement is JVM implementation dependent.

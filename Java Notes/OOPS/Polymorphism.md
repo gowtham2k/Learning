@@ -362,9 +362,9 @@ flowchart TD
     C --> D{Compiler checks:\nDoes Payment have processPayment?\n}
     D -->|Yes — compile passes| E[At RUNTIME: JVM looks at\nactual object at that memory address]
     E --> F{What is the actual type?}
-    F -->|VisaCard| G[Run VisaCard.processPayment()]
-    F -->|UPIPayment| H[Run UPIPayment.processPayment()]
-    F -->|CashPayment| I[Run CashPayment.processPayment()]
+    F -->|VisaCard| G[Run VisaCard.processPayment]
+    F -->|UPIPayment| H[Run UPIPayment.processPayment]
+    F -->|CashPayment| I[Run CashPayment.processPayment]
 
     style G fill:#51cf66,stroke:#2f9e44
     style H fill:#51cf66,stroke:#2f9e44
